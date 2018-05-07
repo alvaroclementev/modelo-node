@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const planificador = require('./planificador').planificar;
 const parseWeather = require('./parseWeather').parseWeather;
 const administrar = require('./administrador').administrar;
+const Scraper = require('./scraper').Scraper;
 const request = require('request');
 const app = express();
 
@@ -21,7 +22,7 @@ app.listen(app.get("port"), () => console.log("Escuchando en localhost:" + app.g
 
 
 //Logica de la planificacion
-function planificar(req, res) {
+async function planificar(req, res) {
     
     const ntareas = req.body.tareas;
     console.log("El body es", req.body);
@@ -30,8 +31,19 @@ function planificar(req, res) {
     const tareas = generarTareas(ntareas);
     console.log("Las tareas al inicio son:", tareas);
     //Conseguir precios
-    const precios = require('./data').precios;
-    console.log('Los precios son', precios);
+    //const precios = require('./data').precios;
+    
+    //Solicitar precios
+    let precios = [];
+    try{
+        const html = await Scraper.requestData();
+        precios = Scraper.getPriceData(html);
+    } catch(err) {
+        throw new Error('Error at price request! ' + err.message);        
+    }   
+
+    console.log('Los precios en el main son', precios);
+    
     //let respuesta = "Error!";
     //Llamar a weather
     request(
