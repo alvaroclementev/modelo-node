@@ -1,0 +1,25 @@
+{
+  "name": "modelo",
+  "version": "1.0.0",
+  "private": false,
+  "engines": {
+    "node": "6.*"
+  },
+  "description": "modelo de planificacion de las tareas",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.ng.bluemix.net/201307456/modelo-node.git"
+  },
+  "author": "Grupo 6 Hackathon IBM",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "request": "^2.83.0"
+  }
+}
